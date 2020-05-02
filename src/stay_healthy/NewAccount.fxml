@@ -1,8 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #E1FBFC;">
+         <children>
+            <VBox alignment="CENTER" prefHeight="600.0" prefWidth="220.0" style="-fx-background-color: #82C26E;">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="170.0" text="Go Back">
+                     <font>
+                        <Font name="Georgia" size="15.0" />
+                     </font>
+                  </Button>
+               </children></VBox>
+            <VBox prefHeight="600.0" prefWidth="580.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="252.0" text="Please, fill in the form" underline="true">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="425.0" prefWidth="581.0">
+                     <children>
+                        <VBox prefHeight="418.0" prefWidth="544.0">
+                           <children>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="418.0" prefWidth="250.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <TextField prefHeight="35.0" prefWidth="240.0" promptText="E-mail adress">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <PasswordField prefHeight="35.0" prefWidth="240.0" promptText="Password">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </PasswordField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <ChoiceBox prefWidth="150.0" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <TextField promptText="Age">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="100.0" prefWidth="200.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" prefHeight="418.0" prefWidth="250.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <TextField prefHeight="35.0" prefWidth="240.0" promptText="Nick Name">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <PasswordField prefHeight="35.0" prefWidth="240.0" promptText="Repeat password">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </PasswordField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <TextField promptText="Hight (m)">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <TextField promptText="Weight">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <ChoiceBox prefWidth="150.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="140.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="310.0" style="-fx-background-color: #82C26E;" text="Submit">
+                           <font>
+                              <Font name="Georgia" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets left="20.0" right="20.0" />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children></HBox>
+   </children>
 </AnchorPane>
