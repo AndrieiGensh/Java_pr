@@ -19,8 +19,6 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
 
-import javafx.scene.input.MouseEvent;
-
 import static javafx.scene.paint.Color.*;
 
 

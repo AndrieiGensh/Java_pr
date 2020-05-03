@@ -102,7 +102,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #72ea86;" text="Create new account" />
+                  <Button fx:id="new_account_button" mnemonicParsing="false" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #72ea86;" text="Create new account" />
                   <Label fx:id="mes_label" alignment="CENTER" prefHeight="82.0" prefWidth="172.0" text="Message" visible="false">
                      <font>
                         <Font size="25.0" />
