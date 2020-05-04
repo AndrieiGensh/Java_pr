@@ -1,9 +1,14 @@
 package stay_healthy;
 
+import com.sun.org.apache.xpath.internal.operations.Number;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +19,7 @@ import static javafx.scene.paint.Color.*;
 
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -21,6 +27,7 @@ import java.sql.SQLException;
 
 import javafx.fxml.FXML;
 
+import javafx.stage.Stage;
 import utils.ConnectionUtil;
 
 import java.net.URL;
@@ -75,7 +82,7 @@ public class NewAccountController implements Initializable{
     Connection con;
 
     ObservableList<String> sex_list = FXCollections.observableArrayList("Male","Female");
-    ObservableList<String> phy_act_level = FXCollections.observableArrayList("High", "Average", "Occasional", "Low","None at all");
+    ObservableList<String> phy_act_level_list = FXCollections.observableArrayList("High", "Average", "Occasional", "Low","None at all");
 
     public NewAccountController()
     {
@@ -86,12 +93,27 @@ public class NewAccountController implements Initializable{
     @FXML
     public void SubmitButtonControl(ActionEvent event)
     {
-
+        String st= new_account_creation_status();
+        if(st.equals("Success"))
+        {
+            set_dialog_label(GREEN,"The account creation was successful");
+        }
+        else
+        {
+            System.out.println(st);
+           // set_dialog_label(TOMATO,"Failed account creation. In submit");
+        }
     }
 
     @FXML
-    public void BackButtonControl()
-    {
+    public void BackButtonControl(ActionEvent event) throws IOException {
+        Parent login_parent = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Scene login_scene = new Scene(login_parent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(login_scene);
+        window.show();
 
     }
 
@@ -100,17 +122,119 @@ public class NewAccountController implements Initializable{
         String status = "Success";
         String nick_name = nick_name_field.getText();
         String e_mail = e_mail_field.getText();
+        System.out.println(e_mail);
         String sex = sex_choice.getValue();
         String act_level = physical_act_choice.getValue();
-        int age = Integer.parseInt(age_field.getText());
-        double height = Double.parseDouble(height_field.getText());
-        double weight = Double.parseDouble(weight_field.getText());
+        int age;
+        double height,weight;
+        try
+        {
+             age = Integer.parseInt(age_field.getText());
+        }
+        catch(NumberFormatException ex)
+        {
+            age = 0;
+        }
+        try
+        {
+             height = Double.parseDouble(height_field.getText());
+        }
+        catch(NumberFormatException ex)
+        {
+            height=0.0;
+        }
+        try
+        {
+             weight = Double.parseDouble(weight_field.getText());
+        }
+        catch(NumberFormatException ex)
+        {
+            weight = 0.0;
+        }
         String password = pass_field.getText();
         String repeat_pass = repeat_pass_field.getText();
+        System.out.println(password);
+
+        //check if the provided data are suitable or not
 
         if(check_the_data(nick_name,e_mail,password,repeat_pass,weight,height,age))
         {
+            // if they are - then try to find, whether the account for the given e_mail already exists in the data base
+            try
+            {
+                String statement = "SELECT * FROM users WHERE e_mail = ? ";
+                preparedStatement = con.prepareStatement(statement);
+                preparedStatement.setString(1,e_mail);
+                resultSet=preparedStatement.executeQuery();
+                if(!(resultSet.next()))
+                {
+                    System.out.println("No such e-mail yet");
+                    e_mail_mes_label.setTextFill(GREEN);
+                    e_mail_mes_label.setText("E-mail is free");
+                    e_mail_mes_label.setVisible(true);
+                    //if the account does not exist yet - then try to create it and add the information to the users' data base
+                    try
+                    {
+                        statement = "INSERT INTO users (name, e_mail, password) VALUES ( ?, ?, ?)";
+                        preparedStatement = con.prepareStatement(statement);
+                        preparedStatement.setString(1, nick_name);
+                        preparedStatement.setString(2, e_mail);
+                        preparedStatement.setString(3, password);
+                        preparedStatement.executeUpdate();
 
+                        //check if the insertion really succeeded by trying to select the data about the newly created account from the database
+
+                        statement = "SELECT * FROM users WHERE e_mail = ?";
+                        preparedStatement = con.prepareStatement(statement);
+                        preparedStatement.setString(1, e_mail);
+                        resultSet = preparedStatement.executeQuery();
+
+                        int id=0;
+
+                        if(resultSet.next())
+                        {
+                            set_dialog_label(GREEN,"The creation was successful");
+                            id = resultSet.getInt("user_id");
+
+                            statement="INSERT INTO user_info (u_id, age, height, weight, sex, phy_act_level) VALUES ( ?, ?, ?, ?, ?, ?)";
+                            preparedStatement=con.prepareStatement(statement);
+                            preparedStatement.setString(1,Integer.toString(id));
+                            preparedStatement.setString(2,Integer.toString(age));
+                            preparedStatement.setString(3,Double.toString(height));
+                            preparedStatement.setString(4,Double.toString(weight));
+                            preparedStatement.setString(5,sex);
+                            preparedStatement.setString(6,act_level);
+                            preparedStatement.executeUpdate();
+                        }
+                        else
+                        {
+                            set_dialog_label(TOMATO,"The creation failed. No data in data base ");
+                            status = "Failed creating";
+                        }
+
+                        //then try to insert the addition data (age, weight and so on) to another data base using the user's ID from previous data base
+                    }
+                    catch (SQLException ex)
+                    {
+                        set_dialog_label(YELLOW,"Could not add the user to data base");
+                        status = "Failed insert";
+                        System.err.println(ex.getMessage());
+                    }
+                }
+                else
+                {
+                    //otherwise the account creation fails
+                    e_mail_mes_label.setTextFill(TOMATO);
+                    e_mail_mes_label.setText("The account for this email exists");
+                    e_mail_mes_label.setVisible(true);
+                    status = "Exists";
+                }
+            }
+            catch(SQLException ex)
+            {
+                System.err.println(ex.getMessage());
+                status = "Exception";
+            }
         }
         else
         {
@@ -125,7 +249,7 @@ public class NewAccountController implements Initializable{
         sex_choice.setValue("Male");
         sex_choice.setItems(sex_list);
         physical_act_choice.setValue("Average");
-        physical_act_choice.setItems(phy_act_level);
+        physical_act_choice.setItems(phy_act_level_list);
         if(con == null)
         {
             set_dialog_label(TOMATO,"No connection to the server");
@@ -164,6 +288,9 @@ public class NewAccountController implements Initializable{
                 else
                 {
                     how_many_are_correct+=1;
+                    name_mes_label.setText("Correct");
+                    name_mes_label.setTextFill(GREEN);
+                    name_mes_label.setVisible(true);
                 }
             }
         }
@@ -185,6 +312,9 @@ public class NewAccountController implements Initializable{
             else
             {
                 how_many_are_correct+=1;
+                e_mail_mes_label.setText("Correct");
+                e_mail_mes_label.setTextFill(GREEN);
+                e_mail_mes_label.setVisible(true);
             }
         }
 
@@ -213,6 +343,9 @@ public class NewAccountController implements Initializable{
                 else
                 {
                     how_many_are_correct+=1;
+                    pass_mes_label.setText("Correct");
+                    pass_mes_label.setTextFill(GREEN);
+                    pass_mes_label.setVisible(true);
                 }
             }
         }
@@ -234,6 +367,9 @@ public class NewAccountController implements Initializable{
             else
             {
                 how_many_are_correct+=1;
+                rep_pass_mes_label.setText("Correct");
+                rep_pass_mes_label.setTextFill(GREEN);
+                rep_pass_mes_label.setVisible(true);
             }
         }
 
@@ -245,7 +381,7 @@ public class NewAccountController implements Initializable{
         }
         else
         {
-            if(height>=300)
+            if(height>=2.8)
             {
                 height_mes_label.setTextFill(TOMATO);
                 height_mes_label.setText("Very unlikely data...");
@@ -254,6 +390,9 @@ public class NewAccountController implements Initializable{
             else
             {
                 how_many_are_correct+=1;
+                height_mes_label.setText("Correct");
+                height_mes_label.setTextFill(GREEN);
+                height_mes_label.setVisible(true);
             }
         }
 
@@ -265,7 +404,7 @@ public class NewAccountController implements Initializable{
         }
         else
         {
-            if(weight>=2.8)
+            if(weight>=300)
             {
                 weight_mes_label.setTextFill(TOMATO);
                 weight_mes_label.setText("Very unlikely data...");
@@ -274,6 +413,9 @@ public class NewAccountController implements Initializable{
             else
             {
                 how_many_are_correct+=1;
+                weight_mes_label.setText("Correct");
+                weight_mes_label.setTextFill(GREEN);
+                weight_mes_label.setVisible(true);
             }
         }
 
@@ -294,6 +436,9 @@ public class NewAccountController implements Initializable{
             else
             {
                 how_many_are_correct+=1;
+                age_mes_label.setText("Correct");
+                age_mes_label.setTextFill(GREEN);
+                age_mes_label.setVisible(true);
             }
         }
 

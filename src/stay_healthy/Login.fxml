@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stay_healthy.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stay_healthy.LoginController">
    <children>
       <HBox layoutX="-1.0" prefHeight="600.0" prefWidth="800.0">
          <children>
@@ -102,7 +107,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <Button fx:id="new_account_button" mnemonicParsing="false" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #72ea86;" text="Create new account" />
+                  <Button fx:id="new_account_button" mnemonicParsing="false" onAction="#CreateAccountButtonControl" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #72ea86;" text="Create new account" />
                   <Label fx:id="mes_label" alignment="CENTER" prefHeight="82.0" prefWidth="172.0" text="Message" visible="false">
                      <font>
                         <Font size="25.0" />

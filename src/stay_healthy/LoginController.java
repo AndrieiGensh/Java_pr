@@ -1,13 +1,18 @@
 package stay_healthy;
 
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import utils.ConnectionUtil;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -62,6 +67,18 @@ public class LoginController implements Initializable{
     {
         con = ConnectionUtil.connDB();
     }
+
+    @FXML
+    public void CreateAccountButtonControl(ActionEvent event) throws IOException {
+        Parent new_account_parent = FXMLLoader.load(getClass().getResource("NewAccount.fxml"));
+        Scene new_account_scene = new Scene(new_account_parent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(new_account_scene);
+        window.show();
+    }
+
     @FXML
     public void LoginButtonControll(ActionEvent event)
     {
@@ -95,7 +112,7 @@ public class LoginController implements Initializable{
         {
             try
             {
-                String query = "SELECT * FROM users WHERE Name = ?  AND Password = ?";
+                String query = "SELECT * FROM users WHERE e_mail = ?  AND password = ?";
                 preparedStatement = con.prepareStatement(query);
                 preparedStatement.setString(1, name);
                 //preparedStatement.setString(2, name);
