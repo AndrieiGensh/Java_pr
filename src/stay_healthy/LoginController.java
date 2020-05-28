@@ -29,6 +29,8 @@ import static javafx.scene.paint.Color.*;
 
 public class LoginController implements Initializable{
 
+    PersonModel person = new PersonModel();
+
     @FXML
     private TextField name_or_email_text;
 
@@ -80,14 +82,56 @@ public class LoginController implements Initializable{
     }
 
     @FXML
-    public void LoginButtonControll(ActionEvent event)
-    {
+    public void LoginButtonControll(ActionEvent event) throws SQLException, IOException {
         if(event.getSource()==log_in_button)
         {
             if(login_status().equals("Success"))
             {
                 mes_label.setText("Login success");
                 mes_label.setVisible(true);
+
+                String statement = "SELECT * from users WHERE e_mail = ? OR name = ?";
+                preparedStatement=con.prepareStatement(statement);
+                preparedStatement.setString(1,name_or_email_text.getText());
+                preparedStatement.setString(2,name_or_email_text.getText());
+                resultSet=preparedStatement.executeQuery();
+
+                int id;
+
+                if(resultSet.next())
+                {
+                    id=resultSet.getInt("user_id");
+                    System.out.println("id in login == "+id);
+                    person.setId(id);
+                    person.setName(resultSet.getString("name"));
+                    statement = "SELECT * from user_info WHERE u_id = ?";
+                    preparedStatement=con.prepareStatement(statement);
+                    preparedStatement.setString(1,Integer.toString(id));
+                    resultSet=preparedStatement.executeQuery();
+
+                    if(resultSet.next())
+                    {
+                        person.setActivity_level(resultSet.getString("phy_act_level"));
+                        person.setSex(resultSet.getString("sex"));
+                        person.setAge(resultSet.getInt("age"));
+                        person.setHeight(resultSet.getDouble("height"));
+                        person.setWeight(resultSet.getDouble("weight"));
+                    }
+                }
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("stay_healthy/UserMainWindow.fxml"));
+                loader.setLocation(getClass().getResource("UserMainWindow.fxml"));
+                Parent user_window_parent = loader.load();
+
+                UserMainWindowController controller = (UserMainWindowController) loader.getController();
+                controller.inflateUI(person);
+
+                Scene user_window_scene = new Scene(user_window_parent);
+
+                Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+                window.setScene(user_window_scene);
+                window.show();
             }
             else
             {

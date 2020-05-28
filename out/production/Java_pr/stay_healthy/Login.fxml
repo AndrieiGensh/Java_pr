@@ -13,21 +13,42 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stay_healthy.LoginController">
    <children>
-      <HBox layoutX="-1.0" prefHeight="600.0" prefWidth="801.0">
+      <HBox layoutX="-1.0" prefHeight="600.0" prefWidth="800.0">
          <children>
-            <VBox prefHeight="598.0" prefWidth="321.0" style="-fx-background-color: #82C26E;" />
-            <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="480.0" style="-fx-background-color: #E1FBFC;">
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="322.0" style="-fx-background-color: #82C26E;" />
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="480.0" style="-fx-background-color: #E1FBFC;">
                <children>
                   <HBox alignment="TOP_RIGHT" prefHeight="158.0" prefWidth="480.0">
                      <children>
-                        <Label fx:id="close_label" alignment="CENTER" prefHeight="49.0" prefWidth="57.0" text="X" textAlignment="CENTER" textFill="#a53535" underline="true">
-                           <font>
-                              <Font name="System Bold" size="19.0" />
-                           </font>
-                           <effect>
-                              <ColorAdjust contrast="-0.11" />
-                           </effect>
-                        </Label>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="159.0" prefWidth="280.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="50.0" prefWidth="246.0" text="Stay Healthy, Friend!">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" prefHeight="43.0" prefWidth="150.0" text="Please, log in ">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="close_label" alignment="CENTER" prefHeight="49.0" prefWidth="57.0" text="X" textAlignment="CENTER" textFill="#a53535" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="19.0" />
+                                 </font>
+                                 <effect>
+                                    <ColorAdjust contrast="-0.11" />
+                                 </effect>
+                              </Label>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -46,24 +67,47 @@
                            </font>
                         </TextField>
                      </children></HBox>
-                  <VBox alignment="CENTER" prefHeight="120.0" prefWidth="480.0">
+                  <VBox alignment="CENTER" prefHeight="149.0" prefWidth="480.0">
                      <children>
-                        <Label fx:id="err_label" alignment="CENTER" prefHeight="30.0" prefWidth="149.0" text="Errors" textAlignment="CENTER" underline="true">
+                        <Button fx:id="log_in_button" alignment="CENTER" mnemonicParsing="false" onAction="#LoginButtonControll" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #72ea86;" text="Log in">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="err_label" alignment="CENTER" prefHeight="38.0" prefWidth="149.0" text="Errors" textAlignment="CENTER" underline="true">
                            <VBox.margin>
-                              <Insets bottom="20.0" />
+                              <Insets />
                            </VBox.margin>
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Button fx:id="log_in_button" alignment="CENTER" mnemonicParsing="false" onAction="#LoginButtonControll"  prefHeight="38.0" prefWidth="83.0" style="-fx-background-color: #72ea86;" text="Log in">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Separator prefHeight="33.0" prefWidth="480.0" />
+                        <HBox prefHeight="26.0" prefWidth="480.0">
+                           <children>
+                              <VBox prefHeight="26.0" prefWidth="200.0">
+                                 <children>
+                                    <Separator prefHeight="27.0" prefWidth="220.0" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="26.0" prefWidth="78.0">
+                                 <children>
+                                    <Label alignment="CENTER" text="or">
+                                       <font>
+                                          <Font name="System Italic" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="26.0" prefWidth="200.0">
+                                 <children>
+                                    <Separator prefHeight="27.0" prefWidth="252.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
+                  <Button fx:id="new_account_button" mnemonicParsing="false" onAction="#CreateAccountButtonControl" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #72ea86;" text="Create new account" />
                   <Label fx:id="mes_label" alignment="CENTER" prefHeight="82.0" prefWidth="172.0" text="Message" visible="false">
                      <font>
                         <Font size="25.0" />

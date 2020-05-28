@@ -15,8 +15,8 @@
    <children>
       <HBox layoutX="-1.0" prefHeight="600.0" prefWidth="800.0">
          <children>
-            <VBox prefHeight="598.0" prefWidth="322.0" style="-fx-background-color: #82C26E;" />
-            <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="480.0" style="-fx-background-color: #E1FBFC;">
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="322.0" style="-fx-background-color: #82C26E;" />
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="480.0" style="-fx-background-color: #E1FBFC;">
                <children>
                   <HBox alignment="TOP_RIGHT" prefHeight="158.0" prefWidth="480.0">
                      <children>

@@ -38,6 +38,8 @@ import java.util.ResourceBundle;
 
 public class NewAccountController implements Initializable{
 
+    PersonModel person = new PersonModel();
+
     @FXML
     private Button submit_buton;
     @FXML
@@ -91,12 +93,24 @@ public class NewAccountController implements Initializable{
     }
 
     @FXML
-    public void SubmitButtonControl(ActionEvent event)
-    {
+    public void SubmitButtonControl(ActionEvent event) throws IOException {
         String st= new_account_creation_status();
         if(st.equals("Success"))
         {
             set_dialog_label(GREEN,"The account creation was successful");
+            FXMLLoader loader =  new FXMLLoader(getClass().getResource("UserMainWindow.fxml"));
+            loader.setLocation(getClass().getResource("UserMainWindow.fxml"));
+            Parent user_window_parent = loader.load();
+
+            Scene user_window_scene = new Scene(user_window_parent);
+
+            UserMainWindowController controller = loader.getController();
+            controller.inflateUI(person);
+
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+            window.setScene(user_window_scene);
+            window.show();
         }
         else
         {
@@ -205,6 +219,23 @@ public class NewAccountController implements Initializable{
                             preparedStatement.setString(5,sex);
                             preparedStatement.setString(6,act_level);
                             preparedStatement.executeUpdate();
+
+                            //filling in the information about our user into the person model *(to calculate necessary TDEE and to pass
+                            // this info to other stages and windows of the application)
+
+                            System.out.println("id == "+id);
+
+                            person.setId(id);
+                            person.setName(nick_name);
+                            person.setWeight(weight);
+                            person.setHeight(height);
+                            person.setAge(age);
+                            person.setSex(sex);
+                            person.setActivity_level(act_level);
+                            person.claculateTDEE("Maintain");
+
+                            System.out.println("Should have inited person data");
+
                         }
                         else
                         {
