@@ -1,25 +1,37 @@
 package stay_healthy;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class FoodModel
 {
-    private String name;
+    private StringProperty name;
     private double kcal;
     private double proteins;
     private double fats;
     private double carbons;
-    private String measure;
+    private StringProperty measure;
 
     public FoodModel(String name, double kcal, double proteins, double fats, double carbons, String measure)
     {
-        this.name = name;
+        nameProperty().set(name);
+
         this.kcal = kcal;
         this.proteins = proteins;
         this.fats = fats;
         this.carbons = carbons;
-        this.measure = measure;
+        measureProperty().set(measure);
     }
 
-    public String getName()
+    public void multiply_by(double value)
+    {
+        this.carbons *= value;
+        this.kcal *= value;
+        this.fats *= value;
+        this.proteins *= value;
+    }
+
+    public StringProperty getName()
     {
         return this.name;
     }
@@ -44,14 +56,26 @@ public class FoodModel
         return this.carbons;
     }
 
-    public String getMeasure()
+    public StringProperty nameProperty()
+    {
+        if(name == null) name = new SimpleStringProperty(this, "name");
+        return name;
+    }
+
+    public StringProperty measureProperty()
+    {
+        if(measure == null) measure = new SimpleStringProperty(this, "me");
+        return measure;
+    }
+
+    public StringProperty getMeasure()
     {
         return this.measure;
     }
 
     public void setName(String name)
     {
-        this.name = name;
+        nameProperty().set(name);
     }
 
     public void setKcal(double kcal)
@@ -76,6 +100,6 @@ public class FoodModel
 
     public void setMeasure(String measure)
     {
-        this.measure = measure;
+        measureProperty().set(measure);
     }
 }

@@ -149,7 +149,24 @@ public class UserMainWindowController implements Initializable {
     @FXML
     public void AddDishButton(ActionEvent event)
     {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddNewDishToDiary.fxml"));
+            loader.setLocation(getClass().getResource("AddNewDishToDiary.fxml"));
 
+            Parent root = (Parent) loader.load();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            stage.show();
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void inflateUI(PersonModel per)
