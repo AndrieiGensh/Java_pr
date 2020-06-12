@@ -1,5 +1,6 @@
 package stay_healthy;
 
+import com.sun.org.apache.xerces.internal.impl.dv.xs.DoubleDV;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -11,6 +12,8 @@ public class FoodModel
     private double fats;
     private double carbons;
     private StringProperty measure;
+    private double how_much;
+    private StringProperty how_much_string;
 
     public FoodModel(String name, double kcal, double proteins, double fats, double carbons, String measure)
     {
@@ -25,15 +28,29 @@ public class FoodModel
 
     public void multiply_by(double value)
     {
-        this.carbons *= value;
-        this.kcal *= value;
-        this.fats *= value;
-        this.proteins *= value;
+        double factor = 0.0;
+        if(this.measure.get().equals("g") || this.measure.get().equals("ml"))
+        {
+            factor = 100.0;
+        }
+        else
+        {
+            factor = 1.0;
+        }
+        this.carbons *= value / factor;
+        this.kcal *= value / factor;
+        this.fats *= value / factor;
+        this.proteins *= value / factor;
     }
 
     public StringProperty getName()
     {
         return this.name;
+    }
+
+    public StringProperty getHow_much_string()
+    {
+        return this.how_much_string;
     }
 
     public double getKcal()
@@ -56,10 +73,21 @@ public class FoodModel
         return this.carbons;
     }
 
+    public double getHow_much()
+    {
+        return this.how_much;
+    }
+
     public StringProperty nameProperty()
     {
         if(name == null) name = new SimpleStringProperty(this, "name");
         return name;
+    }
+
+    public StringProperty how_much_stringProperty()
+    {
+        if(how_much_string == null) how_much_string = new SimpleStringProperty(this, "hm_str");
+        return how_much_string;
     }
 
     public StringProperty measureProperty()
@@ -101,5 +129,11 @@ public class FoodModel
     public void setMeasure(String measure)
     {
         measureProperty().set(measure);
+    }
+
+    public void setHow_much(double how_much)
+    {
+        this.how_much = how_much;
+        this.how_much_stringProperty().set(Double.toString(how_much) + measure.get());
     }
 }

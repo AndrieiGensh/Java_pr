@@ -25,6 +25,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AddNewDishController implements Initializable {
@@ -35,7 +36,12 @@ public class AddNewDishController implements Initializable {
 
     private boolean is_selected = false;
 
+    private UserMainWindowController controller;
+
     private ObservableList<FoodModel> found = FXCollections.observableArrayList();
+    private ObservableList<FoodModel> added = FXCollections.observableArrayList();
+
+    private PersonModel person = new PersonModel();
 
     public AddNewDishController()
     {
@@ -56,7 +62,10 @@ public class AddNewDishController implements Initializable {
     private TableColumn<FoodModel, String> found_food_column;
     @FXML
     private Button search_button;
-
+    @FXML
+    private Button submit_button;
+    @FXML
+    private TextArea dishes_text_area;
 
     @FXML
     public void OkButton(ActionEvent event)
@@ -66,7 +75,22 @@ public class AddNewDishController implements Initializable {
             if(is_selected)
             {
                 double value = Double.parseDouble(how_much_text.getText());
-                set_warning_label(GREEN, "Read " + value);
+                String textAreaContent = dishes_text_area.getText();
+
+                if(found_food_table.getSelectionModel().getSelectedItem() != null)
+                {
+                    FoodModel dish = found_food_table.getSelectionModel().getSelectedItem();
+                    dish.setHow_much(Double.parseDouble(how_much_text.getText()));
+                    textAreaContent = textAreaContent + "\n" + dish.getName().get() + "(" + value + " " + dish.getMeasure().get() + ")";
+                    dishes_text_area.setText(textAreaContent);
+                    dish.multiply_by(value);
+                    added.add(dish);
+                }
+
+                how_much_text.clear();
+                found.removeAll(found);
+                found_food_table.refresh();
+
             }
         }
     }
@@ -86,9 +110,9 @@ public class AddNewDishController implements Initializable {
         {
             found.clear();
             String food_name = food_name_text.getText();
-            String statement = "SELECT * FROM food_info WHERE food_name = ?";
+            String statement = "SELECT * FROM food_info WHERE food_name like ?";
             preparedStatement = con.prepareStatement(statement);
-            preparedStatement.setString(1, food_name);
+            preparedStatement.setString(1, "%" + food_name.toLowerCase() + "%");
             resultSet = preparedStatement.executeQuery();
 
             if(!(resultSet.next()))
@@ -138,10 +162,67 @@ public class AddNewDishController implements Initializable {
     }
 
 
+    public void  SubmitButtonControl(ActionEvent event) throws IOException, SQLException {
+
+        FoodModel[] foodArray = new FoodModel[added.size()];
+
+        for(int i =0; i < added.size(); i++)
+        {
+            foodArray[i] = added.get(i);
+        }
+
+        FoodContainer foodContainer = new FoodContainer(foodArray);
+
+        foodContainer.sumUp();
+
+        System.out.println("The size of an array in the food container class = " + foodContainer.getArraySize());
+
+        String statement = "INSERT INTO daily_stats (user_id, date, kcal, proteins, fats, carbons) VALUES (?, ?, ?, ?, ?, ?) " +
+                "ON DUPLiCATE KEY UPDATE kcal = kcal + ?, proteins = proteins + ?, fats = fats + ?, carbons = carbons + ?";
+
+        preparedStatement = con.prepareStatement(statement);
+        preparedStatement.setString(1, Integer.toString(person.getId()));
+
+        Date date = new Date();
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+        preparedStatement.setDate(2, sqlDate);
+        preparedStatement.setString(3, Double.toString(foodContainer.getKcal()));
+        preparedStatement.setString(4, Double.toString(foodContainer.getProteins()));
+        preparedStatement.setString(5, Double.toString(foodContainer.getFats()));
+        preparedStatement.setString(6, Double.toString(foodContainer.getCarbons()));
+
+        preparedStatement.setString(7, Double.toString(foodContainer.getKcal()));
+        preparedStatement.setString(8, Double.toString(foodContainer.getProteins()));
+        preparedStatement.setString(9, Double.toString(foodContainer.getFats()));
+        preparedStatement.setString(10, Double.toString(foodContainer.getCarbons()));
+
+        preparedStatement.executeUpdate();
+
+        statement = "INSERT INTO products_diary (u_id, product_name, how_much, units) VALUES (?, ?, ?, ?)";
+        preparedStatement = con.prepareStatement(statement);
+
+        for(int i = 0; i < added.size(); i++)
+        {
+            preparedStatement.setString(1, Integer.toString(person.getId()));
+            preparedStatement.setString(2, foodArray[i].getName().get());
+            preparedStatement.setString(3, Double.toString(foodArray[i].getHow_much()));
+            preparedStatement.setString(4, foodArray[i].getMeasure().get());
+
+            preparedStatement.executeUpdate();
+        }
+
+        this.controller.AppendToTableView(foodContainer);
+
+        Stage stage = (Stage)submit_button.getScene().getWindow();
+        stage.close();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
         found_food_column.setCellValueFactory(new PropertyValueFactory<FoodModel, String>("name"));
+        dishes_text_area.setDisable(true);
     }
 
     public void execute_on_edit()
@@ -217,5 +298,14 @@ public class AddNewDishController implements Initializable {
         warnings_label.setVisible(true);
     }
 
+    public void setReferenseTo(UserMainWindowController controller)
+    {
+        this.controller = controller;
+    }
+
+    public void InflateUI(PersonModel person)
+    {
+        this.person = person;
+    }
 
 }
