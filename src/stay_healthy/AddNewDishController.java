@@ -41,7 +41,9 @@ public class AddNewDishController implements Initializable {
     private ObservableList<FoodModel> found = FXCollections.observableArrayList();
     private ObservableList<FoodModel> added = FXCollections.observableArrayList();
 
-    private PersonModel person = new PersonModel();
+    private BodyModel person;
+
+    private HumanFactory humanFactory = new HumanFactory();
 
     public AddNewDishController()
     {
@@ -303,9 +305,10 @@ public class AddNewDishController implements Initializable {
         this.controller = controller;
     }
 
-    public void InflateUI(PersonModel person)
+    public void InflateUI(BodyModel person)
     {
-        this.person = person;
+        this.person = humanFactory.getNewHuman(person.getSex());
+        this.person.copyModel(person);
     }
 
 }

@@ -28,6 +28,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserMainWindowController implements Initializable {
@@ -36,7 +37,9 @@ public class UserMainWindowController implements Initializable {
     PreparedStatement preparedStatement=null;
     ResultSet resultSet=null;
 
-    private PersonModel person = new PersonModel();
+    private BodyModel person;
+
+    private HumanFactory humanFactory = new HumanFactory();
 
     private String current_scene_state;
 
@@ -45,6 +48,8 @@ public class UserMainWindowController implements Initializable {
     private SceneLoader sceneLoader = new SceneLoader();
 
     public String mess = "none";
+
+    private FoodInflateDAO foodDAO = new FoodInflateDAO();
 
     @FXML
     private Label user_name_label;
@@ -217,68 +222,20 @@ public class UserMainWindowController implements Initializable {
         diary_table_view.refresh();
     }
 
-    public void inflateUI(PersonModel per)
+    public void inflateUI(BodyModel per)
     {
         user_name_label.setText(per.getName());
         age_label.setText(Integer.toString(per.getAge()));
         weight_label.setText(Double.toString(per.getWeight()));
         height_label.setText(Double.toString(per.getHeight()));
 
-        this.person.setId(per.getId());
+        this.person = humanFactory.getNewHuman(per.getSex());
 
-        this.person=per;
+        this.person.copyModel(per);
 
-        String statement = "SELECT * FROM products_diary WHERE u_id = ?";
-        try
-        {
-            System.out.println("Inside try ");
-            System.out.println("Id = " + person.getId());
-            preparedStatement = con.prepareStatement(statement);
-            preparedStatement.setString(1, Integer.toString(person.getId()));
-            resultSet = preparedStatement.executeQuery();
+        this.foodDAO.setUser_id(per.getId());
 
-            String product_name;
-            double how_much;
-            String units;
-
-            System.out.println("Before if statement");
-
-            if(!resultSet.next())
-            {
-                System.out.println("Nothing in the database so far");
-            }
-            else
-            {
-                System.out.println("There is something after all!!!");
-
-                product_name = resultSet.getString("product_name");
-                how_much = resultSet.getDouble("how_much");
-                units = resultSet.getString("units");
-
-                FoodModel dish = new FoodModel(product_name, 0.0, 0.0, 0.0, 0.0, units);
-                dish.setHow_much(how_much);
-
-                diaryList.add(dish);
-                System.out.println("The size of initialized list in init " + diaryList.size());
-
-                while(resultSet.next())
-                {
-                    product_name = resultSet.getString("product_name");
-                    how_much = resultSet.getDouble("how_much");
-                    units = resultSet.getString("units");
-
-                    dish = new FoodModel(product_name, 0.0, 0.0, 0.0, 0.0, units);
-                    dish.setHow_much(how_much);
-
-                    diaryList.add(dish);
-                    System.out.println("The size of initialized list in init method in while is " + diaryList.size());
-                }
-            }
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        diaryList.setAll(this.foodDAO.getAll());
 
         diary_table_view.setItems(diaryList);
         diary_table_view.refresh();

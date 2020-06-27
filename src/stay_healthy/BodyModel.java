@@ -1,52 +1,37 @@
 package stay_healthy;
 
-public class BodyModel {
+import com.sun.xml.internal.ws.wsdl.writer.document.soap.Body;
 
-    private int age;
-    private double height;
-    private double weight;
-    private  String sex;
+public interface BodyModel
+{
 
-    private double KCalNeeds;
-    private double FatsNeeds;
-    private double CarbohydratesNeeds;
-    private double ProteinsNeeds;
+    void copyModel(BodyModel model);
 
-    public void setAge(int age)
-    {
-        this.age = age;
-    }
+    void setAge(int age);
 
-    public void setHeight(double height) { this.height = height; }
+    void setHeight(double height);
 
-    public void setWeight(double weight)
-    {
-        this.weight = weight;
-    }
+    void setWeight(double weight);
 
-    public void setSex(String sex)
-    {
-        this.sex = sex;
-    }
+    int getAge();
 
-    public int getAge()
-    {
-        return age;
-    }
+    double getHeight();
 
-    public double getHeight()
-    {
-        return height;
-    }
+    double getWeight();
 
-    public double getWeight()
-    {
-        return weight;
-    }
+    String getSex();
 
-    public String getSex()
-    {
-        return sex;
-    }
+    void setId(int id);
 
+    void setName(String name);
+
+    void setActivity_level(String activity_level);
+
+    int getId();
+
+    String getName();
+
+    String getActivity_level();
+
+    void claculateTDEE(String choice);
 }

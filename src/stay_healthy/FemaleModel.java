@@ -1,9 +1,15 @@
 package stay_healthy;
 
-public class PersonModel extends BodyModel{
-
+public class FemaleModel implements BodyModel
+{
     private String name;
     private String activity_level;
+
+    private int age;
+    private double height;
+    private double weight;
+
+    public final String sex = "female";
 
     private int id;
 
@@ -12,22 +18,67 @@ public class PersonModel extends BodyModel{
     private double proteins;
     private double carbon;
 
-    public PersonModel(String name, int age, double height, double weight, String sex, String act_level) {
+    private double KCalNeeds;
+    private double FatsNeeds;
+    private double CarbohydratesNeeds;
+    private double ProteinsNeeds;
+
+    public void copyModel(BodyModel model)
+    {
+        this.setActivity_level(model.getActivity_level());
+        this.setAge(model.getAge());
+        this.setHeight(model.getHeight());
+        this.setName(model.getName());
+        this.setWeight(model.getWeight());
+        this.setId(model.getId());
+    }
+
+    public String getSex()
+    {
+        return this.sex;
+    }
+
+    public void setAge(int age)
+    {
+        this.age = age;
+    }
+
+    public void setHeight(double height) { this.height = height; }
+
+    public void setWeight(double weight)
+    {
+        this.weight = weight;
+    }
+
+    public int getAge()
+    {
+        return age;
+    }
+
+    public double getHeight()
+    {
+        return height;
+    }
+
+    public double getWeight()
+    {
+        return weight;
+    }
+
+    public FemaleModel(String name, int age, double height, double weight, String act_level) {
         this.setName(name);
         this.setAge(age);
         this.setHeight(height);
         this.setWeight(weight);
-        this.setSex(sex);
         this.setActivity_level(act_level);
     }
 
-    public PersonModel()
+    public FemaleModel()
     {
         this.setName("None");
         this.setAge(0);
         this.setHeight(0);
         this.setWeight(0);
-        this.setSex("None");
         this.setActivity_level("None");
     }
 
@@ -63,14 +114,7 @@ public class PersonModel extends BodyModel{
 
     public void claculateTDEE(String choice)
     {
-        if (this.getSex().equals("Male"))
-        {
-            this.TDEE=(10.0*this.getWeight()+6.25*this.getHeight()*100-5.0*this.getAge()+5.0);
-        }
-        else
-        {
-            this.TDEE=(10.0*this.getWeight()+6.25*this.getHeight()*100-5.0*this.getAge()+161.0);
-        }
+        this.TDEE=(9.56*this.getWeight()+1.85*this.getHeight()*100-4.68*this.getAge()+655.0);
 
         switch(this.activity_level)
         {

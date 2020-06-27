@@ -26,7 +26,9 @@ import java.util.ResourceBundle;
 
 public class ChangeInfoController implements Initializable
 {
-    PersonModel person = new PersonModel();
+    BodyModel person;
+
+    private HumanFactory humanFactory = new HumanFactory();
 
     PreparedStatement preparedStatement=null;
     ResultSet resultSet = null;
@@ -176,9 +178,10 @@ public class ChangeInfoController implements Initializable
         warnings_label.setVisible(true);
     }
 
-    public void inflateUI(PersonModel per)
+    public void inflateUI(BodyModel per)
     {
-        this.person=per;
+        this.person = humanFactory.getNewHuman(per.getSex());
+        this.person.copyModel(per);
         System.out.println(this.person.getId() + this.person.getName());
     }
 

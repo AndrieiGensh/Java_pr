@@ -38,7 +38,9 @@ import java.util.ResourceBundle;
 
 public class NewAccountController implements Initializable{
 
-    PersonModel person = new PersonModel();
+    BodyModel person;
+
+    private HumanFactory humanFactory = new HumanFactory();
 
     @FXML
     private Button submit_buton;
@@ -225,12 +227,13 @@ public class NewAccountController implements Initializable{
 
                             System.out.println("id == "+id);
 
+                            person = humanFactory.getNewHuman(sex);
+
                             person.setId(id);
                             person.setName(nick_name);
                             person.setWeight(weight);
                             person.setHeight(height);
                             person.setAge(age);
-                            person.setSex(sex);
                             person.setActivity_level(act_level);
                             person.claculateTDEE("Maintain");
 

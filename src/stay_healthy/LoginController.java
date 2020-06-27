@@ -29,7 +29,9 @@ import static javafx.scene.paint.Color.*;
 
 public class LoginController implements Initializable{
 
-    PersonModel person = new PersonModel();
+    public BodyModel person;
+
+    private HumanFactory humanFactory = new HumanFactory();
 
     @FXML
     private TextField name_or_email_text;
@@ -97,13 +99,13 @@ public class LoginController implements Initializable{
                 resultSet=preparedStatement.executeQuery();
 
                 int id;
+                String person_name;
 
                 if(resultSet.next())
                 {
                     id=resultSet.getInt("user_id");
                     System.out.println("id in login == "+id);
-                    person.setId(id);
-                    person.setName(resultSet.getString("name"));
+                    person_name = resultSet.getString("name");
                     statement = "SELECT * from user_info WHERE u_id = ?";
                     preparedStatement=con.prepareStatement(statement);
                     preparedStatement.setString(1,Integer.toString(id));
@@ -111,8 +113,15 @@ public class LoginController implements Initializable{
 
                     if(resultSet.next())
                     {
+                        String person_sex = resultSet.getString("sex");
+
+                        System.out.println("We got " + person_sex);
+
+                        person = humanFactory.getNewHuman(person_sex);
+
+                        person.setId(id);
+                        person.setName(person_name);
                         person.setActivity_level(resultSet.getString("phy_act_level"));
-                        person.setSex(resultSet.getString("sex"));
                         person.setAge(resultSet.getInt("age"));
                         person.setHeight(resultSet.getDouble("height"));
                         person.setWeight(resultSet.getDouble("weight"));
