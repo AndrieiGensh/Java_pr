@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -27,8 +28,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class UserMainWindowController implements Initializable {
@@ -45,11 +45,19 @@ public class UserMainWindowController implements Initializable {
 
     private ObservableList<FoodModel> diaryList = FXCollections.observableArrayList();
 
+    private ArrayList<Double> stats;
+
+    private ObservableList<PieChart.Data> pieChartData= FXCollections.observableArrayList();
+
     private SceneLoader sceneLoader = new SceneLoader();
 
     public String mess = "none";
 
     private FoodInflateDAO foodDAO = new FoodInflateDAO();
+
+    private Scene general_view;
+
+    private Scene details;
 
     @FXML
     private Label user_name_label;
@@ -85,6 +93,8 @@ public class UserMainWindowController implements Initializable {
     private TableColumn<FoodModel, String> dish_name_column;
     @FXML
     private TableColumn<FoodModel, String> how_much_column;
+    @FXML
+    private PieChart stats_chart;
 
 
     public UserMainWindowController()
@@ -143,8 +153,8 @@ public class UserMainWindowController implements Initializable {
     {
         try
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangeUserInfo.fxml"));
-            loader.setLocation(getClass().getResource("ChangeUserInfo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChangeUserInfo.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/ChangeUserInfo.fxml"));
 
             Parent root = (Parent) loader.load();
 
@@ -166,7 +176,7 @@ public class UserMainWindowController implements Initializable {
 
     @FXML
     public void LogOutSideButton(ActionEvent event) throws IOException {
-        Parent login_parent = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent login_parent = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
         Scene login_scene = new Scene(login_parent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -181,8 +191,8 @@ public class UserMainWindowController implements Initializable {
         mess = "inited in add dish";
         try
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddNewDishToDiary.fxml"));
-            loader.setLocation(getClass().getResource("AddNewDishToDiary.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddNewDishToDiary.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/AddNewDishToDiary.fxml"));
 
             Parent root = (Parent) loader.load();
 
@@ -217,8 +227,19 @@ public class UserMainWindowController implements Initializable {
 
         set_dialog_label(MAGENTA, "The size is " + diaryList.size());
 
+        this.stats = this.foodDAO.getStats();
+
+        this.pieChartData.clear();
+
+        this.pieChartData.add(new PieChart.Data("proteins", this.stats.get(1)));
+        this.pieChartData.add(new PieChart.Data("fats", this.stats.get(2)));
+        this.pieChartData.add(new PieChart.Data("carbons", this.stats.get(3)));
+
+        this.stats_chart.setData(pieChartData);
+
         diary_table_view.setItems(diaryList);
         diary_table_view.refresh();
+
     }
 
     public void inflateUI(BodyModel per)
@@ -233,6 +254,14 @@ public class UserMainWindowController implements Initializable {
         this.person.copyModel(per);
 
         this.foodDAO.setUser_id(per.getId());
+
+        this.stats = (this.foodDAO.getStats());
+
+        this.pieChartData.add(new PieChart.Data("proteins", this.stats.get(1)));
+        this.pieChartData.add(new PieChart.Data("fats", this.stats.get(2)));
+        this.pieChartData.add(new PieChart.Data("carbons", this.stats.get(3)));
+
+        this.stats_chart.setData(pieChartData);
 
         diaryList.setAll(this.foodDAO.getAll());
 
@@ -254,7 +283,7 @@ public class UserMainWindowController implements Initializable {
 
         try
         {
-            root = FXMLLoader.load(getClass().getResource(file_name+".fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/" + file_name + ".fxml"));
         } catch (IOException e)
         {
             e.printStackTrace();

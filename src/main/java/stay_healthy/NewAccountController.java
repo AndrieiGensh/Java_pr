@@ -1,6 +1,5 @@
 package stay_healthy;
 
-import com.sun.org.apache.xpath.internal.operations.Number;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 
@@ -100,8 +99,8 @@ public class NewAccountController implements Initializable{
         if(st.equals("Success"))
         {
             set_dialog_label(GREEN,"The account creation was successful");
-            FXMLLoader loader =  new FXMLLoader(getClass().getResource("UserMainWindow.fxml"));
-            loader.setLocation(getClass().getResource("UserMainWindow.fxml"));
+            FXMLLoader loader =  new FXMLLoader(getClass().getResource("/fxml/UserMainWindow.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/UserMainWindow.fxml"));
             Parent user_window_parent = loader.load();
 
             Scene user_window_scene = new Scene(user_window_parent);
@@ -123,7 +122,7 @@ public class NewAccountController implements Initializable{
 
     @FXML
     public void BackButtonControl(ActionEvent event) throws IOException {
-        Parent login_parent = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent login_parent = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
         Scene login_scene = new Scene(login_parent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();

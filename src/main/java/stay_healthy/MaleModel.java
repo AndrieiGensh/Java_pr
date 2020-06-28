@@ -144,4 +144,11 @@ public class MaleModel implements BodyModel
 
     }
 
+    public void calculateNeeds()
+    {
+        this.CarbohydratesNeeds = this.TDEE * 43 / 100.0;
+        this.FatsNeeds = this.TDEE * 25 / 100.0;
+        this.ProteinsNeeds = this.weight * 2.5;
+    }
+
 }

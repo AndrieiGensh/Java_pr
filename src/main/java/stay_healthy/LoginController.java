@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utils.ConnectionUtil;
@@ -73,7 +72,7 @@ public class LoginController implements Initializable{
 
     @FXML
     public void CreateAccountButtonControl(ActionEvent event) throws IOException {
-        Parent new_account_parent = FXMLLoader.load(getClass().getResource("NewAccount.fxml"));
+        Parent new_account_parent = FXMLLoader.load(getClass().getResource("/fxml/NewAccount.fxml"));
         Scene new_account_scene = new Scene(new_account_parent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -127,8 +126,8 @@ public class LoginController implements Initializable{
                     }
                 }
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("stay_healthy/UserMainWindow.fxml"));
-                loader.setLocation(getClass().getResource("UserMainWindow.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserMainWindow.fxml"));
+                loader.setLocation(getClass().getResource("/fxml/UserMainWindow.fxml"));
                 Parent user_window_parent = loader.load();
 
                 UserMainWindowController controller = (UserMainWindowController) loader.getController();
@@ -155,7 +154,7 @@ public class LoginController implements Initializable{
         String name = name_or_email_text.getText();
         String password = password_text.getText();
 
-        if(name.isEmpty()||password.isEmpty())
+        if(name.isEmpty() || password.isEmpty())
         {
             status = "Error";
             set_error_label(TOMATO,"No empty field allowed");

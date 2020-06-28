@@ -33,4 +33,6 @@ public interface BodyModel
     String getActivity_level();
 
     void claculateTDEE(String choice);
+
+    void calculateNeeds();
 }

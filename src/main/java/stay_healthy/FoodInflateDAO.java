@@ -73,6 +73,50 @@ public class FoodInflateDAO implements DAO<FoodModel>
         return eaten_food;
     }
 
+    @Override
+    public ArrayList<Double> getStats()
+    {
+        ArrayList<Double> stats = new ArrayList<Double>();
+
+        String statement = "SELECT * FROM daily_stats WHERE user_id = ?";
+        try
+        {
+            preparedStatement = con.prepareStatement(statement);
+            preparedStatement.setString(1, Integer.toString(this.user_id));
+            resultSet = preparedStatement.executeQuery();
+
+            if(!resultSet.next())
+            {
+                System.out.println("Nothing in the database so far");
+            }
+            else
+            {
+                System.out.println("THERE IS SOMETHING AFTER ALL IN THE STATS DATA");
+                double kcals_stat = resultSet.getDouble("kcal");
+                System.out.println(kcals_stat);
+                double proteins_stat = resultSet.getDouble("proteins");
+                System.out.println(proteins_stat);
+                double fats_stat = resultSet.getDouble("fats");
+                System.out.println(fats_stat);
+                double carbons_stat = resultSet.getDouble("carbons");
+                System.out.println(carbons_stat);
+
+                stats.add(kcals_stat);
+                stats.add(proteins_stat);
+                stats.add(fats_stat);
+                stats.add(carbons_stat);
+
+                System.out.println(stats.size());
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return stats;
+    }
+
     public void save()
     {
     }

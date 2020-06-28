@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stay_healthy.UserMainWindowController">
+   <children>
+      <BorderPane fx:id="border_pane" layoutX="57.0" layoutY="31.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox alignment="TOP_CENTER" prefHeight="468.0" prefWidth="134.0" style="-fx-background-color: #82C26E;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="general_view_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#GeneralViewSideButton" prefHeight="80.0" prefWidth="134.0" text="General view">
+                     <opaqueInsets>
+                        <Insets bottom="40.0" top="40.0" />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="see_detailed_side_button" mnemonicParsing="false" onAction="#SeeDetailedButton" prefHeight="80.0" prefWidth="140.0" text="See detailed...">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin></Button>
+                  <Button fx:id="settings_button" mnemonicParsing="false" prefHeight="80.0" prefWidth="140.0" text="Settings" />
+                  <Button fx:id="log_out_button" mnemonicParsing="false" onAction="#LogOutSideButton" prefHeight="54.0" prefWidth="107.0" text="Log out">
+                     <VBox.margin>
+                        <Insets top="70.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin></VBox>
+         </left>
+         <center>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="666.0" style="-fx-background-color: #E1FBFC;" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="diary_table_view" prefHeight="404.0" prefWidth="251.0">
+                    <columns>
+                      <TableColumn fx:id="dish_name_column" prefWidth="149.43398088216782" text="Dish or product" />
+                      <TableColumn fx:id="how_much_column" prefWidth="102.33966064453125" text="How much" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="add_dish_button" layoutX="94.0" layoutY="426.0" mnemonicParsing="false" onAction="#AddDishButton" text="Add new" />
+                  <PieChart fx:id="stats_chart" layoutX="249.0" layoutY="-1.0" prefHeight="405.0" prefWidth="416.0" title="Statistics" />
+                  <Button fx:id="see_detailed_button" layoutX="428.0" layoutY="426.0" mnemonicParsing="false" text="See detailed" />
+                  <Label fx:id="dialog_label" alignment="CENTER" layoutX="255.0" layoutY="404.0" prefHeight="18.0" prefWidth="408.0" text="Server warnings" underline="true" visible="false" />
+               </children></Pane>
+         </center>
+         <top>
+            <HBox alignment="CENTER" prefHeight="118.0" prefWidth="801.0" style="-fx-background-color: #82C26E;" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane prefHeight="119.0" prefWidth="374.0">
+                     <children>
+                        <ImageView fitHeight="115.0" fitWidth="93.0" layoutX="8.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icon2.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="user_name_label" alignment="CENTER" layoutX="166.0" layoutY="39.0" prefHeight="41.0" prefWidth="168.0" text="UserName">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <VBox alignment="CENTER" prefHeight="141.0" prefWidth="97.0">
+                     <children>
+                        <Label fx:id="age_label" text="Label">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="141.0" prefWidth="101.0">
+                     <children>
+                        <Label fx:id="height_label" text="Label">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="141.0" prefWidth="111.0">
+                     <children>
+                        <Label fx:id="weight_label" text="Label">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Button fx:id="change_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ChangeButton" prefHeight="53.0" prefWidth="89.0" text="Change" />
+               </children>
+            </HBox>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>

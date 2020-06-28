@@ -69,8 +69,8 @@ public class ChangeInfoController implements Initializable
             person.setAge(Integer.parseInt(age_text.getText()));
             person.claculateTDEE("Maintain");
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("stayhealthy/UserMainWindow.fxml"));
-            fxmlLoader.setLocation(getClass().getResource("UserMainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/UserMainWindow.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/fxml/UserMainWindow.fxml"));
 
             Parent user_window = (Parent)fxmlLoader.load();
 
