@@ -48,7 +48,6 @@ public class FoodContainer implements Container
         return this.foodArray.length;
     }
 
-    @Override
     public Iterator getIterator()
     {
         return new FoodIterator();
@@ -58,13 +57,11 @@ public class FoodContainer implements Container
     {
         int food_index;
 
-        @Override
         public boolean has_next_item()
         {
             return food_index < foodArray.length;
         }
 
-        @Override
         public Object next_item()
         {
             if(this.has_next_item())

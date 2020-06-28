@@ -1,6 +1,6 @@
 package stay_healthy;
 
-public class FemaleModel implements BodyModel
+public class MaleModel implements BodyModel
 {
     private String name;
     private String activity_level;
@@ -9,7 +9,7 @@ public class FemaleModel implements BodyModel
     private double height;
     private double weight;
 
-    public final String sex = "female";
+    public final String sex = "male";
 
     private int id;
 
@@ -65,7 +65,7 @@ public class FemaleModel implements BodyModel
         return weight;
     }
 
-    public FemaleModel(String name, int age, double height, double weight, String act_level) {
+    public MaleModel(String name, int age, double height, double weight, String act_level) {
         this.setName(name);
         this.setAge(age);
         this.setHeight(height);
@@ -73,7 +73,7 @@ public class FemaleModel implements BodyModel
         this.setActivity_level(act_level);
     }
 
-    public FemaleModel()
+    public MaleModel()
     {
         this.setName("None");
         this.setAge(0);
@@ -114,43 +114,32 @@ public class FemaleModel implements BodyModel
 
     public void claculateTDEE(String choice)
     {
-        this.TDEE=(9.56*this.getWeight()+1.85*this.getHeight()*100-4.68*this.getAge()+655.0);
+        this.TDEE=(13.5*this.getWeight()+5.0*this.getHeight()*100-6.78*this.getAge()+65.0);
 
-        switch(this.activity_level)
-        {
-            case "None at all":
-            {
-                this.TDEE*=1.05;
-            }
-            case "Low":
-            {
-                this.TDEE*=1.2;
-            }
-            case "Occasional":
-            {
-                this.TDEE*=1.375;
-            }
-            case "Average":
-            {
-                this.TDEE*=1.55;
-            }
-            case "High":
-            {
-                this.TDEE*=1.725;
-            }
+        if ("None at all".equals(this.activity_level)) {
+            this.TDEE *= 1.05;
+
+        } else if ("Low".equals(this.activity_level)) {
+            this.TDEE *= 1.2;
+
+        } else if ("Occasional".equals(this.activity_level)) {
+            this.TDEE *= 1.375;
+
+        } else if ("Average".equals(this.activity_level)) {
+            this.TDEE *= 1.55;
+
+        } else if ("High".equals(this.activity_level)) {
+            this.TDEE *= 1.725;
         }
 
-        switch (choice)
-        {
-            case "Maintain": {
-                this.TDEE *= 1.005;
-            }
-            case "Put on": {
-                this.TDEE *= 1.2;
-            }
-            case "Lose": {
-                this.TDEE *= 0.8;
-            }
+        if ("Maintain".equals(choice)) {
+            this.TDEE *= 1.005;
+
+        } else if ("Put on".equals(choice)) {
+            this.TDEE *= 1.2;
+
+        } else if ("Lose".equals(choice)) {
+            this.TDEE *= 0.8;
         }
 
     }

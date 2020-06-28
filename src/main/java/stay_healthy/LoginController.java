@@ -52,7 +52,6 @@ public class LoginController implements Initializable{
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-    @Override
     public void initialize(URL location, ResourceBundle resources)
     {
         if(con==null)

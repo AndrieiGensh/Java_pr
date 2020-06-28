@@ -92,7 +92,6 @@ public class UserMainWindowController implements Initializable {
         con = ConnectionUtil.connDB();
     }
 
-    @Override
     public void initialize(URL location, ResourceBundle resources)
     {
         System.out.println("THE SCENE IS BEiNG INITIALIZED");

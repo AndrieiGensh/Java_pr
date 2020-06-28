@@ -1,6 +1,5 @@
 package stay_healthy;
 
-import com.mysql.cj.protocol.Resultset;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArrayBase;
 import javafx.collections.ObservableList;
@@ -19,7 +18,7 @@ public class FoodInflateDAO implements DAO<FoodModel>
     private ResultSet resultSet = null;
     private PreparedStatement preparedStatement = null;
     private Connection con = null;
-    @Override
+
     public ObservableList<FoodModel> getAll()
     {
         ObservableList<FoodModel> eaten_food = FXCollections.observableArrayList();
@@ -74,17 +73,14 @@ public class FoodInflateDAO implements DAO<FoodModel>
         return eaten_food;
     }
 
-    @Override
     public void save()
     {
     }
 
-    @Override
     public void update() {
 
     }
 
-    @Override
     public void delete() {
 
     }

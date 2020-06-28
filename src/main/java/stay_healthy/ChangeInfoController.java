@@ -50,7 +50,6 @@ public class ChangeInfoController implements Initializable
         con = ConnectionUtil.connDB();
     }
 
-    @Override
     public void initialize(URL location, ResourceBundle resources)
     {
         if(con==null)

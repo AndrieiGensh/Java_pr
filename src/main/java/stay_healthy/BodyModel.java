@@ -1,6 +1,5 @@
 package stay_healthy;
 
-import com.sun.xml.internal.ws.wsdl.writer.document.soap.Body;
 
 public interface BodyModel
 {
