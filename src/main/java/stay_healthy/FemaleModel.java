@@ -1,5 +1,7 @@
 package stay_healthy;
 
+import java.util.ArrayList;
+
 public class FemaleModel implements BodyModel
 {
     private String name;
@@ -146,9 +148,20 @@ public class FemaleModel implements BodyModel
 
     public void calculateNeeds()
     {
-        this.CarbohydratesNeeds = this.TDEE * 43 / 100.0;
-        this.FatsNeeds = this.TDEE * 25 / 100.0;
-        this.ProteinsNeeds = this.weight * 2.1;
+        this.CarbohydratesNeeds = (double)((int)(this.TDEE * 43 / 100.0 / 4.0)*100)/100;
+        this.FatsNeeds = (double)((int)(this.TDEE * 25 / 100.0 / 9.0)*100)/100;
+        this.ProteinsNeeds = (double)((int)(this.weight * 2.1)*100)/100;
+    }
+
+    public ArrayList<Double> getNeeds()
+    {
+        ArrayList<Double> needs = new ArrayList<Double>();
+        needs.add(this.TDEE);
+        needs.add(this.ProteinsNeeds);
+        needs.add(this.FatsNeeds);
+        needs.add(this.CarbohydratesNeeds);
+
+        return needs;
     }
 
 }

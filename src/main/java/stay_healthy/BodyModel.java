@@ -1,6 +1,8 @@
 package stay_healthy;
 
 
+import java.util.ArrayList;
+
 public interface BodyModel
 {
 
@@ -35,4 +37,6 @@ public interface BodyModel
     void claculateTDEE(String choice);
 
     void calculateNeeds();
+
+    ArrayList<Double> getNeeds();
 }

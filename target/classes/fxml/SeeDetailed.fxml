@@ -1,16 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="666.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #E1FBFC;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stay_healthy.SeeDetailedController">
    <children>
-      <Label alignment="CENTER" layoutX="175.0" layoutY="138.0" prefHeight="206.0" prefWidth="315.0" style="-fx-background-color: red;" text="Details">
+      <Button fx:id="got_it_button" layoutX="43.0" layoutY="313.0" mnemonicParsing="false" onAction="#GotItButtonControl" prefHeight="34.0" prefWidth="80.0" text="Got it!" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="161.0" layoutY="14.0" prefHeight="34.0" prefWidth="178.0" style="-fx-background-color: #bcf3ab;" text="Detailed Info">
          <font>
-            <Font size="54.0" />
+            <Font size="15.0" />
          </font>
       </Label>
+      <Label layoutX="44.0" layoutY="77.0" text="Kcal consumed">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="43.0" layoutY="119.0" text="Proteins consumed">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="43.0" layoutY="163.0" text="Fats consumed">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="tips_text_area" editable="false" layoutX="167.0" layoutY="261.0" prefHeight="139.0" prefWidth="333.0" promptText="Here are some useful tips for you">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextArea>
+      <Label layoutX="45.0" layoutY="200.0" text="Carbons consumed">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="268.0" layoutY="77.0" text="Kcal daily norm">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="268.0" layoutY="119.0" text="Proteins daily norm">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="268.0" layoutY="163.0" text="Fats daily norm">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="268.0" layoutY="200.0" text="Carbons daily norm">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="kcal_consumed" layoutX="192.0" layoutY="78.0" text="Label" />
+      <Label fx:id="prot_consumed" layoutX="192.0" layoutY="120.0" text="Label" />
+      <Label fx:id="fats_consumed" layoutX="192.0" layoutY="164.0" text="Label" />
+      <Label fx:id="carb_consumed" layoutX="192.0" layoutY="201.0" text="Label" />
+      <Label fx:id="kcal_norm" layoutX="413.0" layoutY="78.0" text="Label" />
+      <Label fx:id="prot_norm" layoutX="413.0" layoutY="120.0" text="Label" />
+      <Label fx:id="fats_norm" layoutX="413.0" layoutY="164.0" text="Label" />
+      <Label fx:id="carb_norm" layoutX="413.0" layoutY="201.0" text="Label" />
    </children>
 </AnchorPane>

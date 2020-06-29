@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stay_healthy.UserMainWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stay_healthy.UserMainWindowController">
    <children>
       <BorderPane fx:id="border_pane" layoutX="57.0" layoutY="31.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -18,17 +26,16 @@
                         <Insets bottom="40.0" top="40.0" />
                      </opaqueInsets>
                      <VBox.margin>
-                        <Insets bottom="20.0" />
+                        <Insets bottom="80.0" />
                      </VBox.margin>
                   </Button>
                   <Button fx:id="see_detailed_side_button" mnemonicParsing="false" onAction="#SeeDetailedButton" prefHeight="80.0" prefWidth="140.0" text="See detailed...">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin></Button>
-                  <Button fx:id="settings_button" mnemonicParsing="false" prefHeight="80.0" prefWidth="140.0" text="Settings" />
                   <Button fx:id="log_out_button" mnemonicParsing="false" onAction="#LogOutSideButton" prefHeight="54.0" prefWidth="107.0" text="Log out">
                      <VBox.margin>
-                        <Insets top="70.0" />
+                        <Insets top="140.0" />
                      </VBox.margin>
                   </Button>
                </children>
@@ -50,7 +57,7 @@
                   </TableView>
                   <Button fx:id="add_dish_button" layoutX="94.0" layoutY="426.0" mnemonicParsing="false" onAction="#AddDishButton" text="Add new" />
                   <PieChart fx:id="stats_chart" layoutX="249.0" layoutY="-1.0" prefHeight="405.0" prefWidth="416.0" title="Statistics" />
-                  <Button fx:id="see_detailed_button" layoutX="428.0" layoutY="426.0" mnemonicParsing="false" text="See detailed" />
+                  <Button fx:id="see_detailed_button" layoutX="428.0" layoutY="426.0" mnemonicParsing="false" onAction="#SeeDetailedButton" text="See detailed" />
                   <Label fx:id="dialog_label" alignment="CENTER" layoutX="255.0" layoutY="404.0" prefHeight="18.0" prefWidth="408.0" text="Server warnings" underline="true" visible="false" />
                </children></Pane>
          </center>
@@ -66,7 +73,7 @@
                         </ImageView>
                         <Label fx:id="user_name_label" alignment="CENTER" layoutX="166.0" layoutY="39.0" prefHeight="41.0" prefWidth="168.0" text="UserName">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
                      </children>
@@ -75,7 +82,7 @@
                      <children>
                         <Label fx:id="age_label" text="Label">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                            <VBox.margin>
                               <Insets />
@@ -87,7 +94,7 @@
                      <children>
                         <Label fx:id="height_label" text="Label">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                            <VBox.margin>
                               <Insets />
@@ -99,7 +106,7 @@
                      <children>
                         <Label fx:id="weight_label" text="Label">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                            <VBox.margin>
                               <Insets />

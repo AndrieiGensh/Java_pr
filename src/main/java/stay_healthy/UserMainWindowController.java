@@ -55,9 +55,6 @@ public class UserMainWindowController implements Initializable {
 
     private FoodInflateDAO foodDAO = new FoodInflateDAO();
 
-    private Scene general_view;
-
-    private Scene details;
 
     @FXML
     private Label user_name_label;
@@ -131,22 +128,29 @@ public class UserMainWindowController implements Initializable {
     @FXML
     public void SeeDetailedButton(ActionEvent event)
     {
-        if(current_scene_state.equals("see_detailed"))
+        try
         {
-            return;
-        }
-        else
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SeeDetailed.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/SeeDetailed.fxml"));
+
+            Parent root = (Parent) loader.load();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            SeeDetailedController controller = (SeeDetailedController) loader.getController();
+            controller.inflateUI(this.person, this.stats);
+
+            stage.show();
+
+        } catch (IOException e)
         {
-            setCenterPane("SeeDetailed");
-            current_scene_state="see_detailed";
+                e.printStackTrace();
         }
     }
 
-    @FXML
-    public void SettingsSideButton(ActionEvent event)
-    {
-
-    }
 
     @FXML
     public void ChangeButton(ActionEvent event)
