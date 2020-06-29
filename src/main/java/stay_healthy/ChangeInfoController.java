@@ -62,8 +62,6 @@ public class ChangeInfoController implements Initializable
     private void SubmitButtonControl(ActionEvent event) throws SQLException, IOException {
         if(info_change_status().equals("Success"))
         {
-            System.out.println("Changes successfully applied");
-
             person.setWeight(Double.parseDouble(weight_text.getText()));
             person.setHeight(Double.parseDouble(height_text.getText()));
             person.setAge(Integer.parseInt(age_text.getText()));
@@ -75,7 +73,7 @@ public class ChangeInfoController implements Initializable
             Parent user_window = (Parent)fxmlLoader.load();
 
             UserMainWindowController controller = (UserMainWindowController)fxmlLoader.getController();
-            controller.inflateUI(person);
+            controller.resetUserInfo(person);
 
             Stage stage = (Stage)submit_button.getScene().getWindow();
             stage.close();
@@ -181,7 +179,6 @@ public class ChangeInfoController implements Initializable
     {
         this.person = humanFactory.getNewHuman(per.getSex());
         this.person.copyModel(per);
-        System.out.println(this.person.getId() + this.person.getName());
     }
 
 }

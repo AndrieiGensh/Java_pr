@@ -91,7 +91,7 @@ public class AddNewDishController implements Initializable {
 
                 how_much_text.clear();
                 found.removeAll(found);
-                found_food_table.refresh();
+                found_food_table.setItems(found_food_table.getItems());
 
             }
         }
@@ -176,8 +176,6 @@ public class AddNewDishController implements Initializable {
         FoodContainer foodContainer = new FoodContainer(foodArray);
 
         foodContainer.sumUp();
-
-        System.out.println("The size of an array in the food container class = " + foodContainer.getArraySize());
 
         String statement = "INSERT INTO daily_stats (user_id, date, kcal, proteins, fats, carbons) VALUES (?, ?, ?, ?, ?, ?) " +
                 "ON DUPLiCATE KEY UPDATE kcal = kcal + ?, proteins = proteins + ?, fats = fats + ?, carbons = carbons + ?";

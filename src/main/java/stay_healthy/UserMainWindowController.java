@@ -43,11 +43,11 @@ public class UserMainWindowController implements Initializable {
 
     private String current_scene_state;
 
-    private ObservableList<FoodModel> diaryList = FXCollections.observableArrayList();
+    public ObservableList<FoodModel> diaryList = FXCollections.observableArrayList();
 
     private ArrayList<Double> stats;
 
-    private ObservableList<PieChart.Data> pieChartData= FXCollections.observableArrayList();
+    public ObservableList<PieChart.Data> pieChartData= FXCollections.observableArrayList();
 
     private SceneLoader sceneLoader = new SceneLoader();
 
@@ -55,15 +55,14 @@ public class UserMainWindowController implements Initializable {
 
     private FoodInflateDAO foodDAO = new FoodInflateDAO();
 
-
     @FXML
-    private Label user_name_label;
+    public Label user_name_label;
     @FXML
-    private Label age_label;
+    public Label age_label;
     @FXML
-    private Label weight_label;
+    public Label weight_label;
     @FXML
-    private Label height_label;
+    public Label height_label;
     @FXML
     private Button log_out_button;
     @FXML
@@ -79,19 +78,19 @@ public class UserMainWindowController implements Initializable {
     @FXML
     private Button add_dish_button;
     @FXML
-    private Label dialog_label;
+    public Label dialog_label;
     @FXML
     private Label warnings_label;
     @FXML
     private BorderPane border_pane;
     @FXML
-    private TableView<FoodModel> diary_table_view;
+    public TableView<FoodModel> diary_table_view;
     @FXML
-    private TableColumn<FoodModel, String> dish_name_column;
+    public  TableColumn<FoodModel, String> dish_name_column;
     @FXML
-    private TableColumn<FoodModel, String> how_much_column;
+    public  TableColumn<FoodModel, String> how_much_column;
     @FXML
-    private PieChart stats_chart;
+    public PieChart stats_chart;
 
 
     public UserMainWindowController()
@@ -101,14 +100,11 @@ public class UserMainWindowController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources)
     {
-        System.out.println("THE SCENE IS BEiNG INITIALIZED");
-
        current_scene_state="general_view";
        mess = "inited";
 
        dish_name_column.setCellValueFactory(new PropertyValueFactory<FoodModel, String>("name"));
        how_much_column.setCellValueFactory(new PropertyValueFactory<FoodModel, String>("how_much_string"));
-
     }
 
     @FXML
@@ -116,18 +112,21 @@ public class UserMainWindowController implements Initializable {
     {
         if(current_scene_state.equals("general_view"))
         {
+            resetUserInfo(this.person);
             return;
         }
         else
         {
             setCenterPane("GeneralView");
             current_scene_state="general_view";
+            resetUserInfo(this.person);
         }
     }
 
     @FXML
     public void SeeDetailedButton(ActionEvent event)
     {
+        resetUserInfo(this.person);
         try
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SeeDetailed.fxml"));
@@ -151,6 +150,12 @@ public class UserMainWindowController implements Initializable {
         }
     }
 
+    public void resetUserInfo(BodyModel person)
+    {
+        this.height_label.setText(Double.toString(person.getHeight()));
+        this.weight_label.setText(Double.toString(person.getWeight()));
+        this.age_label.setText(Double.toString(person.getAge()));
+    }
 
     @FXML
     public void ChangeButton(ActionEvent event)
@@ -227,8 +232,6 @@ public class UserMainWindowController implements Initializable {
             diaryList.add(dish);
         }
 
-        System.out.println("Now the list is " + diaryList.size() + " element long");
-
         set_dialog_label(MAGENTA, "The size is " + diaryList.size());
 
         this.stats = this.foodDAO.getStats();
@@ -242,7 +245,7 @@ public class UserMainWindowController implements Initializable {
         this.stats_chart.setData(pieChartData);
 
         diary_table_view.setItems(diaryList);
-        diary_table_view.refresh();
+        resetUserInfo(this.person);
 
     }
 
@@ -261,20 +264,26 @@ public class UserMainWindowController implements Initializable {
 
         this.stats = (this.foodDAO.getStats());
 
-        this.pieChartData.add(new PieChart.Data("proteins", this.stats.get(1)));
-        this.pieChartData.add(new PieChart.Data("fats", this.stats.get(2)));
-        this.pieChartData.add(new PieChart.Data("carbons", this.stats.get(3)));
+        if(this.stats.size() == 0)
+        {
+            set_dialog_label(YELLOW, "Nothing to show yet");
+        }
+        else
+        {
+            this.pieChartData.add(new PieChart.Data("proteins", this.stats.get(1)));
+            this.pieChartData.add(new PieChart.Data("fats", this.stats.get(2)));
+            this.pieChartData.add(new PieChart.Data("carbons", this.stats.get(3)));
 
-        this.stats_chart.setData(pieChartData);
+            this.stats_chart.setData(pieChartData);
+        }
 
         diaryList.setAll(this.foodDAO.getAll());
 
         diary_table_view.setItems(diaryList);
-        diary_table_view.refresh();
-
+        resetUserInfo(this.person);
     }
 
-    private void set_dialog_label(Color col,String text)
+    public void set_dialog_label(Color col,String text)
     {
         dialog_label.setText(text);
         dialog_label.setTextFill(col);

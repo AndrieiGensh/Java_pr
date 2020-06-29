@@ -14,6 +14,7 @@ stay_healthy\Main.class
 stay_healthy\FemaleModel.class
 stay_healthy\MaleModel.class
 stay_healthy\AddNewDishController.class
+stay_healthy\SeeDetailedController.class
 stay_healthy\NewAccountController.class
 stay_healthy\LoginController.class
 stay_healthy\FoodModel.class

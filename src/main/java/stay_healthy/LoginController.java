@@ -101,8 +101,8 @@ public class LoginController implements Initializable{
 
                 if(resultSet.next())
                 {
+                    set_error_label(MAGENTA, "WE HAVE U!");
                     id=resultSet.getInt("user_id");
-                    System.out.println("id in login == "+id);
                     person_name = resultSet.getString("name");
                     statement = "SELECT * from user_info WHERE u_id = ?";
                     preparedStatement=con.prepareStatement(statement);
@@ -112,8 +112,6 @@ public class LoginController implements Initializable{
                     if(resultSet.next())
                     {
                         String person_sex = resultSet.getString("sex");
-
-                        System.out.println("We got " + person_sex);
 
                         person = humanFactory.getNewHuman(person_sex);
 
@@ -130,12 +128,17 @@ public class LoginController implements Initializable{
                 loader.setLocation(getClass().getResource("/fxml/UserMainWindow.fxml"));
                 Parent user_window_parent = loader.load();
 
-                UserMainWindowController controller = (UserMainWindowController) loader.getController();
-                controller.inflateUI(person);
+                UserMainWindowController controller = loader.getController();
+
+                controller.inflateUI(this.person);
+
+                set_error_label(MAGENTA, "INF and set scene");
 
                 Scene user_window_scene = new Scene(user_window_parent);
 
                 Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+                set_error_label(MAGENTA, "Showing u!");
 
                 window.setScene(user_window_scene);
                 window.show();
@@ -166,7 +169,6 @@ public class LoginController implements Initializable{
                 String query = "SELECT * FROM users WHERE e_mail = ?  AND password = ?";
                 preparedStatement = con.prepareStatement(query);
                 preparedStatement.setString(1, name);
-                //preparedStatement.setString(2, name);
                 preparedStatement.setString(2, password);
                 resultSet = preparedStatement.executeQuery();
                 if(!resultSet.next())

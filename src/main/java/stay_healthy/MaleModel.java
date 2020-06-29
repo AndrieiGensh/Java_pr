@@ -82,6 +82,7 @@ public class MaleModel implements BodyModel
         this.setHeight(0);
         this.setWeight(0);
         this.setActivity_level("None");
+        this.id = -1;
     }
 
     public void setId(int id)

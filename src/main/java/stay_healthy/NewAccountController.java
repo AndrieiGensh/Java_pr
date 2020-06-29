@@ -115,8 +115,7 @@ public class NewAccountController implements Initializable{
         }
         else
         {
-            System.out.println(st);
-           // set_dialog_label(TOMATO,"Failed account creation. In submit");
+           set_dialog_label(TOMATO,"Failed account creation. In submit");
         }
     }
 
@@ -137,7 +136,6 @@ public class NewAccountController implements Initializable{
         String status = "Success";
         String nick_name = nick_name_field.getText();
         String e_mail = e_mail_field.getText();
-        System.out.println(e_mail);
         String sex = sex_choice.getValue();
         String act_level = physical_act_choice.getValue();
         int age;
@@ -168,7 +166,6 @@ public class NewAccountController implements Initializable{
         }
         String password = pass_field.getText();
         String repeat_pass = repeat_pass_field.getText();
-        System.out.println(password);
 
         //check if the provided data are suitable or not
 
@@ -183,7 +180,6 @@ public class NewAccountController implements Initializable{
                 resultSet=preparedStatement.executeQuery();
                 if(!(resultSet.next()))
                 {
-                    System.out.println("No such e-mail yet");
                     e_mail_mes_label.setTextFill(GREEN);
                     e_mail_mes_label.setText("E-mail is free");
                     e_mail_mes_label.setVisible(true);
@@ -224,8 +220,6 @@ public class NewAccountController implements Initializable{
                             //filling in the information about our user into the person model *(to calculate necessary TDEE and to pass
                             // this info to other stages and windows of the application)
 
-                            System.out.println("id == "+id);
-
                             person = humanFactory.getNewHuman(sex);
 
                             person.setId(id);
@@ -235,8 +229,6 @@ public class NewAccountController implements Initializable{
                             person.setAge(age);
                             person.setActivity_level(act_level);
                             person.claculateTDEE("Maintain");
-
-                            System.out.println("Should have inited person data");
 
                         }
                         else

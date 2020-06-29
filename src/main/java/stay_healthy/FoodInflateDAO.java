@@ -36,7 +36,6 @@ public class FoodInflateDAO implements DAO<FoodModel>
 
             if(!resultSet.next())
             {
-                System.out.println("Nothing in the database so far");
             }
             else
             {
@@ -49,7 +48,6 @@ public class FoodInflateDAO implements DAO<FoodModel>
                 dish.setHow_much(how_much);
 
                 eaten_food.add(dish);
-                System.out.println("The size of initialized list in init " + eaten_food.size());
 
                 while(resultSet.next())
                 {
@@ -61,7 +59,6 @@ public class FoodInflateDAO implements DAO<FoodModel>
                     dish.setHow_much(how_much);
 
                     eaten_food.add(dish);
-                    System.out.println("The size of initialized list in init method in while is " + eaten_food.size());
                 }
             }
         }
@@ -87,26 +84,19 @@ public class FoodInflateDAO implements DAO<FoodModel>
 
             if(!resultSet.next())
             {
-                System.out.println("Nothing in the database so far");
             }
             else
             {
-                System.out.println("THERE IS SOMETHING AFTER ALL IN THE STATS DATA");
                 double kcals_stat = resultSet.getDouble("kcal");
-                System.out.println(kcals_stat);
                 double proteins_stat = resultSet.getDouble("proteins");
-                System.out.println(proteins_stat);
                 double fats_stat = resultSet.getDouble("fats");
-                System.out.println(fats_stat);
                 double carbons_stat = resultSet.getDouble("carbons");
-                System.out.println(carbons_stat);
 
                 stats.add(kcals_stat);
                 stats.add(proteins_stat);
                 stats.add(fats_stat);
                 stats.add(carbons_stat);
 
-                System.out.println(stats.size());
             }
         }
         catch (SQLException e)
