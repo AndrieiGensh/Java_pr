@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Java_pr.jnlp">
+  <information>
+    <title>AndrieiGeshJavaFX</title>
+    <vendor>Unknown</vendor>
+    <description>AndrieiGeshJavaFX</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Java_pr.jar" size="47594" download="eager" />
+    <jar href="classworlds-1.1-alpha-2.jar" size="37516" download="eager" />
+    <jar href="jfoenix-9.0.8.jar" size="2419463" download="eager" />
+    <jar href="maven-artifact-2.0.6.jar" size="87360" download="eager" />
+    <jar href="maven-artifact-manager-2.0.6.jar" size="56508" download="eager" />
+    <jar href="maven-install-plugin-2.4.jar" size="26952" download="eager" />
+    <jar href="maven-model-2.0.6.jar" size="86390" download="eager" />
+    <jar href="maven-plugin-api-2.0.6.jar" size="12860" download="eager" />
+    <jar href="maven-plugin-registry-2.0.6.jar" size="28922" download="eager" />
+    <jar href="maven-profile-2.0.6.jar" size="35241" download="eager" />
+    <jar href="maven-project-2.0.6.jar" size="116183" download="eager" />
+    <jar href="maven-repository-metadata-2.0.6.jar" size="24475" download="eager" />
+    <jar href="maven-settings-2.0.6.jar" size="49100" download="eager" />
+    <jar href="mysql-connector-java-8.0.19.jar" size="2356711" download="eager" />
+    <jar href="plexus-container-default-1.0-alpha-9-stable-1.jar" size="194185" download="eager" />
+    <jar href="plexus-digest-1.0.jar" size="11858" download="eager" />
+    <jar href="plexus-utils-3.0.5.jar" size="230447" download="eager" />
+    <jar href="protobuf-java-3.6.1.jar" size="1421323" download="eager" />
+    <jar href="wagon-provider-api-1.0-beta-2.jar" size="46326" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="stay_healthy.Main"  name="AndrieiGeshJavaFX" />
+  <update check="background"/>
+</jnlp>
